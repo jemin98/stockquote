@@ -1,0 +1,125 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.buildlog/
+.history
+.svn/
+migrate_working_dir/
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# VS Code
+.vscode/
+
+# Flutter/Dart/Pub related
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+/build/
+.caches/
+*.dart_tool/
+
+# Symbolication related
+app.*.symbols
+
+# Obfuscation related
+app.*.map.json
+
+# Android Studio will place build artifacts here
+/android/app/debug
+/android/app/profile
+/android/app/release
+
+# iOS related
+ios/Pods/
+ios/Podfile.lock
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+ios/Flutter/engine/
+ios/Flutter/App.framework
+
+# Android related
+android/.gradle/
+android/.idea/
+android/local.properties
+android/app/build/
+android/build/
+
+# Web related
+web/manifest.json
+web/.dart_tool/
+web/build/
+
+# Linux related
+linux/flutter/ephemeral/
+linux/build/
+
+# Windows related
+windows/flutter/ephemeral/
+windows/build/
+
+# MacOS related
+macos/flutter/ephemeral/
+macos/build/
+
+# Coverage
+coverage/
+.coverage
+coverage.lcov
+
+# User-specific files
+*.swp
+*~.swp
+*~.swo
+*.tmp
+
+# Packages
+.packages
+.published-metadata
+.dart_tool/
+
+# Generated files
+generated_plugin_registrant.dart
+
+# Flutter State
+.flutter-plugins
+.flutter-plugins-dependencies
+.flutter-version
+.last_build_id
+.dart_tool/package_config.json
+
+# JetBrains IDEs
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Logs
+logs/
+*.log
+
+# Output
+*.apk
+*.aab
+*.app
+*.ipa
+*.xcworkspace
+
+# Firebase
+firebase-debug.log
+
+# Cred
+/config.dart
