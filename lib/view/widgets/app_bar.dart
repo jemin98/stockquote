@@ -29,10 +29,10 @@ class CustomAppBar extends StatelessWidget {
         OnTap != null
             ? GestureDetector(
                 onTap: OnTap,
-                child: const Icon(
+                child: Icon(
                   Icons.arrow_back_ios,
-                  size: 18,
-                  color: AppColors.black,
+                  size: width * 0.05,
+                  color: AppColors.colorMainTheme,
                 ),
               )
             : Container(),
@@ -41,7 +41,7 @@ class CustomAppBar extends StatelessWidget {
           style: GoogleFonts.poppins(
             textStyle: TextStyle(
                 fontSize: fontSize,
-                color: Colors.black,
+                color: AppColors.colorMainTheme,
                 fontWeight: FontWeight.w700),
           ),
         ),
@@ -52,7 +52,7 @@ class CustomAppBar extends StatelessWidget {
             style: GoogleFonts.poppins(
               textStyle: TextStyle(
                   fontSize: width * 0.038,
-                  color: AppColors.blue,
+                  color: AppColors.colorblue,
                   fontWeight: FontWeight.w700),
             ),
           ),

@@ -2,9 +2,12 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:stockquote/utils/colors.dart';
 import 'package:stockquote/utils/const.dart';
 import 'package:stockquote/view/ui/stock_detail_screen.dart';
+import 'package:stockquote/view/widgets/app_bar.dart';
+import 'package:stockquote/view/widgets/horizontal_space.dart';
 import 'package:stockquote/view/widgets/vertical_space.dart';
 
 import '../../data/models/response_models/stock_details_response.dart';
@@ -25,23 +28,46 @@ class _StockQuoteScreenState extends ConsumerState<StockCategoryScreen> {
     final state = ref.watch(StockProvider);
 
     return Scaffold(
+        backgroundColor: AppColors.colorWhite,
         appBar: AppBar(
-          title: const Text('Stock Category'),
+          centerTitle: true,
+          backgroundColor: AppColors.colorWhite,
+          title: Text(
+            'Stock Category',
+            style: GoogleFonts.poppins(
+              textStyle: TextStyle(
+                  fontSize: width * 0.06,
+                  color: AppColors.colorMainTheme,
+                  fontWeight: FontWeight.w700),
+            ),
+          ),
         ),
         body: state.categoryWiseStocks != null &&
                 state.categoryWiseStocks!.isNotEmpty
             ? Column(
                 children: [
-                  DropdownButton<String>(
-                    value: selectedIndustry,
-                    items: _getIndustryDropdownItems(),
-                    onChanged: (value) {
-                      setState(() {
-                        selectedIndustry = value ?? "NO Data";
-                      });
-                    },
-                    hint: const Text('Select Industry'),
+                  Container(
+                    height: height * 0.05,
+                    width: width * 0.92,
+                    decoration: BoxDecoration(
+                        color: AppColors.colorMainTheme.withOpacity(0.1),
+                        border: Border.all(color: AppColors.colorBlack),
+                        borderRadius:
+                            BorderRadius.all(Radius.circular(width * 0.03))),
+                    child: DropdownButton<String>(
+                      padding: EdgeInsets.symmetric(horizontal: width * 0.04),
+                      underline: SizedBox(),
+                      value: selectedIndustry,
+                      items: _getIndustryDropdownItems(),
+                      onChanged: (value) {
+                        setState(() {
+                          selectedIndustry = value ?? "NO Data";
+                        });
+                      },
+                      hint: const Text('Select Industry'),
+                    ),
                   ),
+                  HorizontalSpace(height: height * 0.02),
                   Expanded(
                     child: _getFilteredStocks().isEmpty
                         ? const Center(child: Text('Data Fetching...'))
@@ -49,7 +75,11 @@ class _StockQuoteScreenState extends ConsumerState<StockCategoryScreen> {
                             itemCount: _getFilteredStocks().length,
                             itemBuilder: (context, index) {
                               final stock = _getFilteredStocks()[index];
-                              return StockQuoteCard(stock: stock);
+                              return Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: width * 0.04),
+                                child: StockQuoteCard(stock: stock),
+                              );
                             },
                           ),
                   ),
@@ -104,35 +134,52 @@ class StockQuoteCard extends StatelessWidget {
                   StockDetailScreen(selectedSymbol: stock.ticker!),
             ));
       },
-      child: Card(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              Container(
-                  decoration: const BoxDecoration(
-                      color: AppColors.blue, shape: BoxShape.circle),
-                  width: width * 0.1,
-                  child: Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        stock.ticker ?? "No Data",
-                        style: const TextStyle(color: AppColors.white),
-                        overflow: TextOverflow.ellipsis,
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: width * 0.02),
+        child: Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(width * 0.02),
+              border: Border.all(color: AppColors.colorLightGrey)),
+          child: Padding(
+            padding: EdgeInsets.all(width * 0.02),
+            child: Row(
+              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                    decoration: const BoxDecoration(
+                        color: AppColors.colorblue, shape: BoxShape.circle),
+                    width: width * 0.1,
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          stock.ticker ?? "No Data",
+                          style: const TextStyle(color: AppColors.colorWhite),
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
-                    ),
-                  )),
-              VerticalSpace(width: width * 0.02),
-              SizedBox(
-                  width: width * 0.6,
-                  child: Text(
-                    stock.name ?? "No Data",
-                    overflow: TextOverflow.ellipsis,
-                  )),
-              const Spacer(),
-              Text(stock.marketCapitalization?.toStringAsFixed(2) ?? '-'),
-            ],
+                    )),
+                VerticalSpace(width: width * 0.02),
+                SizedBox(
+                    width: width * 0.5,
+                    child: Text(
+                      stock.name ?? "No Data",
+                      overflow: TextOverflow.ellipsis,
+                      style: GoogleFonts.lato(
+                          fontWeight: FontWeight.bold,
+                          fontSize: width * 0.04,
+                          color: AppColors.colorblue),
+                    )),
+                const Spacer(),
+                Text(
+                  stock.marketCapitalization?.toStringAsFixed(2) ?? '-',
+                  style: GoogleFonts.lato(
+                      fontWeight: FontWeight.bold,
+                      fontSize: width * 0.04,
+                      color: AppColors.colorMainTheme),
+                ),
+              ],
+            ),
           ),
         ),
       ),

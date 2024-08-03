@@ -24,10 +24,11 @@ class _StockSearchScreenState extends ConsumerState<StockSearchScreen> {
     final state = ref.watch(StockProvider);
     final notifier = ref.read(StockProvider.notifier);
     return Scaffold(
+      backgroundColor: AppColors.colorWhite,
       body: Column(
         children: [
           HorizontalSpace(
-            height: height * 0.04,
+            height: height * 0.05,
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25),
@@ -37,11 +38,8 @@ class _StockSearchScreenState extends ConsumerState<StockSearchScreen> {
                 OnSuffixTap: () {},
                 fontSize: width * 0.06),
           ),
-          HorizontalSpace(
-            height: height * 0.02,
-          ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+            padding: EdgeInsets.symmetric(horizontal: width * 0.04),
             child: SizedBox(
               height: height * 0.05,
               child: TextField(
@@ -55,7 +53,7 @@ class _StockSearchScreenState extends ConsumerState<StockSearchScreen> {
                 },
                 decoration: InputDecoration(
                   filled: true,
-                  fillColor: AppColors.white,
+                  fillColor: AppColors.colorMainTheme.withOpacity(0.1),
                   border: const OutlineInputBorder(
                     borderRadius: BorderRadius.all(
                       Radius.circular(
@@ -68,7 +66,7 @@ class _StockSearchScreenState extends ConsumerState<StockSearchScreen> {
                     textStyle: TextStyle(
                       fontSize: height * 0.01566,
                       fontWeight: FontWeight.w400,
-                      color: AppColors.hintColor,
+                      color: AppColors.colorGrey,
                     ),
                   ),
                   suffixIcon: GestureDetector(
@@ -111,17 +109,36 @@ class _StockSearchScreenState extends ConsumerState<StockSearchScreen> {
                                       ));
                                 },
                                 child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: width * 0.02,
+                                      horizontal: width * 0.04),
                                   child: Container(
+                                    height: height * 0.1,
                                     decoration: BoxDecoration(
                                         borderRadius:
                                             BorderRadius.circular(width * 0.02),
                                         border: Border.all(
-                                            color: AppColors.borderColor)),
+                                            color: AppColors.colorLightGrey)),
                                     child: ListTile(
-                                      title: Text(result.description ?? ''),
+                                      contentPadding: EdgeInsets.symmetric(
+                                          // vertical: width * 0.02,
+                                          horizontal: width * 0.04),
+                                      titleTextStyle: GoogleFonts.lato(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: width * 0.04,
+                                          color: AppColors.colorMainTheme),
+                                      subtitleTextStyle: GoogleFonts.lato(
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: width * 0.038,
+                                          color: AppColors.colorblue),
+                                      title: Text(
+                                        result.description ?? '',
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
                                       subtitle: Text(
-                                          'Symbol: ${result.symbol ?? ''}'),
+                                        'Symbol: ${result.symbol ?? ''}',
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
                                       trailing: GestureDetector(
                                           onTap: () {
                                             (state.watchlist != null)
@@ -155,8 +172,8 @@ class _StockSearchScreenState extends ConsumerState<StockSearchScreen> {
                                                             result.symbol)
                                                         .isNotEmpty
                                                     ? AppColors.starColor
-                                                    : AppColors.black
-                                                : AppColors.black,
+                                                    : AppColors.colorblue
+                                                : AppColors.colorBlack,
                                           )),
                                     ),
                                   ),

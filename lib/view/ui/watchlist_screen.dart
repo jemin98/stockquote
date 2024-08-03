@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:stockquote/view/ui/stock_detail_screen.dart';
 
 import '../../utils/colors.dart';
@@ -21,10 +22,11 @@ class _WatchListScreenState extends ConsumerState<StockWatchListScreen> {
     final state = ref.watch(StockProvider);
     final notifier = ref.read(StockProvider.notifier);
     return Scaffold(
+      backgroundColor: AppColors.colorWhite,
       body: Column(
         children: [
           HorizontalSpace(
-            height: height * 0.04,
+            height: height * 0.05,
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25),
@@ -55,14 +57,27 @@ class _WatchListScreenState extends ConsumerState<StockWatchListScreen> {
                               ));
                         },
                         child: Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: EdgeInsets.symmetric(
+                              vertical: width * 0.02, horizontal: width * 0.04),
                           child: Container(
+                            height: height * 0.1,
                             decoration: BoxDecoration(
                                 borderRadius:
                                     BorderRadius.circular(width * 0.02),
-                                border:
-                                    Border.all(color: AppColors.borderColor)),
+                                border: Border.all(
+                                    color: AppColors.colorLightGrey)),
                             child: ListTile(
+                              contentPadding: EdgeInsets.symmetric(
+                                  // vertical: width * 0.02,
+                                  horizontal: width * 0.04),
+                              titleTextStyle: GoogleFonts.lato(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: width * 0.04,
+                                  color: AppColors.colorMainTheme),
+                              subtitleTextStyle: GoogleFonts.lato(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: width * 0.038,
+                                  color: AppColors.colorblue),
                               title: Text(result.description ?? ''),
                               subtitle: Text('Symbol: ${result.symbol ?? ''}'),
                               trailing: GestureDetector(
@@ -87,7 +102,7 @@ class _WatchListScreenState extends ConsumerState<StockWatchListScreen> {
                                                 stock.symbol == result.symbol)
                                             .isNotEmpty
                                         ? AppColors.starColor
-                                        : AppColors.black,
+                                        : AppColors.colorBlack,
                                   )),
                             ),
                           ),

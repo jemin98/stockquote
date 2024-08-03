@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:stockquote/utils/colors.dart';
 
 import '../../utils/const.dart';
 import '../widgets/app_bar.dart';
@@ -29,11 +31,12 @@ class _StockDetailScreenState extends ConsumerState<StockDetailScreen> {
     final state = ref.watch(StockProvider);
 
     return Scaffold(
+      backgroundColor: AppColors.colorWhite,
       body: SingleChildScrollView(
         child: Column(
           children: [
             HorizontalSpace(
-              height: height * 0.04,
+              height: height * 0.05,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25),
@@ -46,17 +49,62 @@ class _StockDetailScreenState extends ConsumerState<StockDetailScreen> {
                   OnSuffixTap: () {},
                   fontSize: width * 0.06),
             ),
-            HorizontalSpace(
-              height: height * 0.02,
-            ),
+            // HorizontalSpace(
+            //   height: height * 0.02,
+            // ),
             state.isLoading
                 ? const CircularProgressIndicator()
                 : state.stockDetailsResponse != null
                     ? Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Center(
-                            child: Image.network(
-                                state.stockDetailsResponse!.logo!),
+                          Row(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.all(width * 0.04),
+                                child: ClipRRect(
+                                  borderRadius:
+                                      BorderRadius.circular(width * 0.04),
+                                  child: Image.network(
+                                      height: height * 0.06,
+                                      state.stockDetailsResponse!.logo!),
+                                ),
+                              ),
+                              Text(
+                                overflow: TextOverflow.ellipsis,
+                                " ${state.stockDetailsResponse!.name}",
+                                style: GoogleFonts.lato(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: width * 0.045,
+                                    color: AppColors.colorblue),
+                              ),
+                            ],
+                          ),
+                          Padding(
+                            padding:
+                                EdgeInsets.symmetric(horizontal: width * 0.04),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Current Price: \$${state.stockPriceResponse!.c?.toStringAsFixed(2)}",
+                                  style: GoogleFonts.lato(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: width * 0.04,
+                                      color: AppColors.colorBlack),
+                                ),
+                                Text(
+                                  "Change: ${state.stockPriceResponse!.d?.toStringAsFixed(2)} (${state.stockPriceResponse!.dp?.toStringAsFixed(2)}%)",
+                                  style: GoogleFonts.lato(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: width * 0.04,
+                                    color: state.stockPriceResponse!.d! < 0
+                                        ? Colors.red.shade800
+                                        : Colors.green.shade800,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                           SizedBox(
                               height: height * 0.4,
@@ -66,77 +114,88 @@ class _StockDetailScreenState extends ConsumerState<StockDetailScreen> {
                           HorizontalSpace(
                             height: height * 0.01,
                           ),
-                          Text(
-                            "Ticker Symbol: ${state.stockDetailsResponse!.ticker}",
-                            style: const TextStyle(fontSize: 16.0),
-                          ),
-                          HorizontalSpace(
-                            height: height * 0.01,
-                          ),
-                          Text(
-                            "Company Name: ${state.stockDetailsResponse!.name}",
-                            style: const TextStyle(fontSize: 16.0),
-                          ),
-                          HorizontalSpace(
-                            height: height * 0.01,
-                          ),
-                          Text(
-                            "Market Capitalization: \$${state.stockDetailsResponse!.marketCapitalization!.toStringAsFixed(2)}",
-                            style: const TextStyle(fontSize: 16.0),
-                          ),
-                          HorizontalSpace(
-                            height: height * 0.01,
-                          ),
-                          Text(
-                            "Exchange: ${state.stockDetailsResponse!.exchange}",
-                            style: const TextStyle(fontSize: 16.0),
-                          ),
-                          HorizontalSpace(
-                            height: height * 0.01,
-                          ),
-                          Text(
-                            "Industry: ${state.stockDetailsResponse!.finnhubIndustry}",
-                            style: const TextStyle(fontSize: 16.0),
-                          ),
-                          HorizontalSpace(
-                            height: height * 0.01,
-                          ),
-                          Text(
-                            "Country: ${state.stockDetailsResponse!.country}",
-                            style: const TextStyle(fontSize: 16.0),
-                          ),
-                          HorizontalSpace(
-                            height: height * 0.01,
-                          ),
-                          Text(
-                            "Currency: ${state.stockDetailsResponse!.currency}",
-                            style: const TextStyle(fontSize: 16.0),
-                          ),
-                          HorizontalSpace(
-                            height: height * 0.01,
-                          ),
-                          Text(
-                            "Website: ${state.stockDetailsResponse!.weburl}",
-                            style: const TextStyle(fontSize: 16.0),
-                          ),
-                          if (state.stockPriceResponse!.c != null) ...[
-                            Text(
-                              "Current Price: \$${state.stockPriceResponse!.c?.toStringAsFixed(2)}",
-                              style: const TextStyle(fontSize: 16.0),
+                          Padding(
+                            padding:
+                                EdgeInsets.symmetric(horizontal: width * 0.04),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Website: ${state.stockDetailsResponse!.weburl}",
+                                  style: GoogleFonts.lato(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: width * 0.04,
+                                      color: AppColors.colorBlack),
+                                ),
+                                HorizontalSpace(
+                                  height: height * 0.01,
+                                ),
+                                Text(
+                                  "Market Capitalization: \$${state.stockDetailsResponse!.marketCapitalization!.toStringAsFixed(2)}",
+                                  style: GoogleFonts.lato(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: width * 0.04,
+                                      color: AppColors.colorBlack),
+                                ),
+                                HorizontalSpace(
+                                  height: height * 0.01,
+                                ),
+                                Text(
+                                  "Ticker Symbol: ${state.stockDetailsResponse!.ticker}",
+                                  style: GoogleFonts.lato(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: width * 0.04,
+                                      color: AppColors.colorBlack),
+                                ),
+                                HorizontalSpace(
+                                  height: height * 0.01,
+                                ),
+                                Text(
+                                  "Exchange: ${state.stockDetailsResponse!.exchange}",
+                                  style: GoogleFonts.lato(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: width * 0.04,
+                                      color: AppColors.colorBlack),
+                                ),
+                                HorizontalSpace(
+                                  height: height * 0.01,
+                                ),
+                                Text(
+                                  "Industry: ${state.stockDetailsResponse!.finnhubIndustry}",
+                                  style: GoogleFonts.lato(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: width * 0.04,
+                                      color: AppColors.colorBlack),
+                                ),
+                                HorizontalSpace(
+                                  height: height * 0.01,
+                                ),
+                                Text(
+                                  "Country: ${state.stockDetailsResponse!.country}",
+                                  style: GoogleFonts.lato(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: width * 0.04,
+                                      color: AppColors.colorBlack),
+                                ),
+                                HorizontalSpace(
+                                  height: height * 0.01,
+                                ),
+                                Text(
+                                  "Currency: ${state.stockDetailsResponse!.currency}",
+                                  style: GoogleFonts.lato(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: width * 0.04,
+                                      color: AppColors.colorBlack),
+                                ),
+                                HorizontalSpace(
+                                  height: height * 0.01,
+                                ),
+                              ],
                             ),
-                            HorizontalSpace(
-                              height: height * 0.01,
-                            ),
-                            Text(
-                              "Change: ${state.stockPriceResponse!.d?.toStringAsFixed(2)} (${state.stockPriceResponse!.dp?.toStringAsFixed(2)}%)",
-                              style: TextStyle(
-                                fontSize: 16.0,
-                                color: state.stockPriceResponse!.d! < 0
-                                    ? Colors.red
-                                    : Colors.green,
-                              ),
-                            ),
-                          ] else ...[
+                          ),
+                          if (state.stockPriceResponse!.c != null)
+                            ...[]
+                          else ...[
                             // Display a placeholder or message if stock price is not available
                             const Text(
                               "Stock price information not available yet.",

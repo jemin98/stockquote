@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:stockquote/utils/colors.dart';
 import 'package:stockquote/utils/const.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
@@ -66,16 +67,29 @@ class _RealtimeStockDataState extends State<RealtimeStockData> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Center(
-            child: SizedBox(
-      height: height * 0.4,
-      child: SfCartesianChart(
-        legend: const Legend(isVisible: false),
-        series: getDefaultData(),
-        tooltipBehavior: _tooltipBehavior,
-      ),
-    )));
+    return Padding(
+      padding: EdgeInsets.all(width * 0.04),
+      child: Container(
+          decoration: BoxDecoration(
+            border: Border.all(color: AppColors.colorblue),
+            borderRadius: BorderRadius.all(
+              Radius.circular(width * 0.04),
+            ),
+            color: AppColors.colorWhite,
+          ),
+          child: Padding(
+            padding: EdgeInsets.all(width * 0.04),
+            child: Center(
+                child: SizedBox(
+              height: height * 0.4,
+              child: SfCartesianChart(
+                legend: const Legend(isVisible: false),
+                series: getDefaultData(),
+                tooltipBehavior: _tooltipBehavior,
+              ),
+            )),
+          )),
+    );
   }
 
   List<LineSeries<ChartData, num>> getDefaultData() {
