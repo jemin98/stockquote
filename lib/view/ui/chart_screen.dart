@@ -68,7 +68,7 @@ class _RealtimeStockDataState extends State<RealtimeStockData> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(width * 0.04),
+      padding: EdgeInsets.only(left: width * 0.04, right: width * 0.04),
       child: Container(
           decoration: BoxDecoration(
             border: Border.all(color: AppColors.colorblue),

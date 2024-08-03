@@ -1,12 +1,9 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stockquote/utils/colors.dart';
 import 'package:stockquote/utils/const.dart';
 import 'package:stockquote/view/ui/stock_detail_screen.dart';
-import 'package:stockquote/view/widgets/app_bar.dart';
 import 'package:stockquote/view/widgets/horizontal_space.dart';
 import 'package:stockquote/view/widgets/vertical_space.dart';
 
@@ -48,23 +45,25 @@ class _StockQuoteScreenState extends ConsumerState<StockCategoryScreen> {
                 children: [
                   Container(
                     height: height * 0.05,
-                    width: width * 0.92,
+                    width: width * 0.8,
                     decoration: BoxDecoration(
                         color: AppColors.colorMainTheme.withOpacity(0.1),
                         border: Border.all(color: AppColors.colorBlack),
                         borderRadius:
                             BorderRadius.all(Radius.circular(width * 0.03))),
-                    child: DropdownButton<String>(
-                      padding: EdgeInsets.symmetric(horizontal: width * 0.04),
-                      underline: SizedBox(),
-                      value: selectedIndustry,
-                      items: _getIndustryDropdownItems(),
-                      onChanged: (value) {
-                        setState(() {
-                          selectedIndustry = value ?? "NO Data";
-                        });
-                      },
-                      hint: const Text('Select Industry'),
+                    child: Center(
+                      child: DropdownButton<String>(
+                        padding: EdgeInsets.symmetric(horizontal: width * 0.04),
+                        underline: const SizedBox(),
+                        value: selectedIndustry,
+                        items: _getIndustryDropdownItems(),
+                        onChanged: (value) {
+                          setState(() {
+                            selectedIndustry = value ?? "NO Data";
+                          });
+                        },
+                        hint: const Text('Select Industry'),
+                      ),
                     ),
                   ),
                   HorizontalSpace(height: height * 0.02),
@@ -96,7 +95,6 @@ class _StockQuoteScreenState extends ConsumerState<StockCategoryScreen> {
         .categoryWiseStocks
         ?.map((stock) => stock.finnhubIndustry)
         .toSet();
-    log('industries :: ==>> ${ref.watch(StockProvider).categoryWiseStocks}');
     return [const DropdownMenuItem(value: "", child: Text('All'))]
         .followedBy(industries!.map((industry) => DropdownMenuItem(
               value: industry,

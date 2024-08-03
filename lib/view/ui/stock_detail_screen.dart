@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stockquote/utils/colors.dart';
+import 'package:stockquote/view/widgets/vertical_space.dart';
 
 import '../../utils/const.dart';
 import '../widgets/app_bar.dart';
@@ -49,9 +50,6 @@ class _StockDetailScreenState extends ConsumerState<StockDetailScreen> {
                   OnSuffixTap: () {},
                   fontSize: width * 0.06),
             ),
-            // HorizontalSpace(
-            //   height: height * 0.02,
-            // ),
             state.isLoading
                 ? const CircularProgressIndicator()
                 : state.stockDetailsResponse != null
@@ -66,45 +64,75 @@ class _StockDetailScreenState extends ConsumerState<StockDetailScreen> {
                                   borderRadius:
                                       BorderRadius.circular(width * 0.04),
                                   child: Image.network(
-                                      height: height * 0.06,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.06,
                                       state.stockDetailsResponse!.logo!),
                                 ),
                               ),
-                              Text(
-                                overflow: TextOverflow.ellipsis,
-                                " ${state.stockDetailsResponse!.name}",
-                                style: GoogleFonts.lato(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: width * 0.045,
-                                    color: AppColors.colorblue),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    width: width * 0.7,
+                                    child: Text(
+                                      overflow: TextOverflow.ellipsis,
+                                      "${state.stockDetailsResponse!.name}",
+                                      style: GoogleFonts.lato(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: width * 0.05,
+                                          color: AppColors.colorblue),
+                                    ),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        state.stockPriceResponse!.c == null
+                                            ? "0.0"
+                                            : "\$${state.stockPriceResponse!.c?.toStringAsFixed(2)}",
+                                        style: GoogleFonts.lato(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: width * 0.04,
+                                            color: AppColors.colorBlack),
+                                      ),
+                                      VerticalSpace(width: width * 0.04),
+                                      Text(
+                                        state.stockPriceResponse!.d == null
+                                            ? "0.0"
+                                            : "${state.stockPriceResponse!.d?.toStringAsFixed(2)} (${state.stockPriceResponse!.dp?.toStringAsFixed(2)}%)",
+                                        style: GoogleFonts.lato(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: width * 0.04,
+                                          color: state.stockPriceResponse!.d ==
+                                                  null
+                                              ? Colors.red.shade800
+                                              : state.stockPriceResponse!.d! < 0
+                                                  ? Colors.red.shade800
+                                                  : Colors.green.shade800,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
                             ],
                           ),
                           Padding(
                             padding:
                                 EdgeInsets.symmetric(horizontal: width * 0.04),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Current Price: \$${state.stockPriceResponse!.c?.toStringAsFixed(2)}",
-                                  style: GoogleFonts.lato(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: width * 0.04,
-                                      color: AppColors.colorBlack),
-                                ),
-                                Text(
-                                  "Change: ${state.stockPriceResponse!.d?.toStringAsFixed(2)} (${state.stockPriceResponse!.dp?.toStringAsFixed(2)}%)",
-                                  style: GoogleFonts.lato(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: width * 0.04,
-                                    color: state.stockPriceResponse!.d! < 0
-                                        ? Colors.red.shade800
-                                        : Colors.green.shade800,
-                                  ),
-                                ),
-                              ],
+                            child: Text(
+                              overflow: TextOverflow.ellipsis,
+                              " * (NO DATA or ZERO as DATA sometime due to free limit)",
+                              style: GoogleFonts.lato(
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: width * 0.03,
+                                  color: AppColors.colorGrey),
                             ),
+                          ),
+                          HorizontalSpace(
+                            height: height * 0.01,
                           ),
                           SizedBox(
                               height: height * 0.4,
@@ -112,7 +140,7 @@ class _StockDetailScreenState extends ConsumerState<StockDetailScreen> {
                                 selectedSymbol: widget.selectedSymbol,
                               )),
                           HorizontalSpace(
-                            height: height * 0.01,
+                            height: height * 0.02,
                           ),
                           Padding(
                             padding:

@@ -12,13 +12,13 @@ class StockPriceResponse {
       {this.c, this.d, this.dp, this.h, this.l, this.o, this.pc, this.t});
 
   StockPriceResponse.fromJson(Map<String, dynamic> json) {
-    c = double.parse(json['c'].toString());
-    d = double.parse(json['d'].toString());
-    dp = double.parse(json['dp'].toString());
-    h = double.parse(json['h'].toString());
-    l = double.parse(json['l'].toString());
-    o = double.parse(json['o'].toString());
-    pc = double.parse(json['pc'].toString());
+    c = json['c'] != null ? double.parse(json['c'].toString()) : null;
+    d = json['d'] != null ? double.parse(json['d'].toString()) : null;
+    dp = json['dp'] != null ? double.parse(json['dp'].toString()) : null;
+    h = json['h'] != null ? double.parse(json['h'].toString()) : null;
+    l = json['l'] != null ? double.parse(json['l'].toString()) : null;
+    o = json['o'] != null ? double.parse(json['o'].toString()) : null;
+    pc = json['pc'] != null ? double.parse(json['pc'].toString()) : null;
     t = json['t'];
   }
 

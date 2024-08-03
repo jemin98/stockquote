@@ -60,7 +60,6 @@ class _WatchListScreenState extends ConsumerState<StockWatchListScreen> {
                           padding: EdgeInsets.symmetric(
                               vertical: width * 0.02, horizontal: width * 0.04),
                           child: Container(
-                            height: height * 0.1,
                             decoration: BoxDecoration(
                                 borderRadius:
                                     BorderRadius.circular(width * 0.02),

@@ -38,6 +38,9 @@ class _StockSearchScreenState extends ConsumerState<StockSearchScreen> {
                 OnSuffixTap: () {},
                 fontSize: width * 0.06),
           ),
+          HorizontalSpace(
+            height: height * 0.02,
+          ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: width * 0.04),
             child: SizedBox(
@@ -113,7 +116,6 @@ class _StockSearchScreenState extends ConsumerState<StockSearchScreen> {
                                       vertical: width * 0.02,
                                       horizontal: width * 0.04),
                                   child: Container(
-                                    height: height * 0.1,
                                     decoration: BoxDecoration(
                                         borderRadius:
                                             BorderRadius.circular(width * 0.02),
@@ -121,7 +123,6 @@ class _StockSearchScreenState extends ConsumerState<StockSearchScreen> {
                                             color: AppColors.colorLightGrey)),
                                     child: ListTile(
                                       contentPadding: EdgeInsets.symmetric(
-                                          // vertical: width * 0.02,
                                           horizontal: width * 0.04),
                                       titleTextStyle: GoogleFonts.lato(
                                           fontWeight: FontWeight.bold,
